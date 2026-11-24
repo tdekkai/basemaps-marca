@@ -1,0 +1,21 @@
+{
+  "cliente": "Dekkai Insights",
+  "fonte_identidade": "wetransfer_dk100-png (100 PNGs) + audex.zip",
+  "cores": {
+    "neutra_clara": "#E8DCC4",
+    "primaria": "#123F36",
+    "secundaria": "#2A6B5C",
+    "acento": "#C49A45"
+  },
+  "tipografia": {
+    "marca": "Audex (OFL 1.1, Reserved Font Name 'Audex')",
+    "rotulos_mapa": "Noto Sans (padrão Protomaps)",
+    "decisao": "só fonte neutra nos mapas"
+  },
+  "uso": {
+    "dado_tematico": "varia por projeto",
+    "consequencia": "basemap neutro; acento mostarda fica fora das áreas, só em rodovias e na variante colorida"
+  },
+  "escalas_teste": ["estado de SP", "município de São Paulo"],
+  "idioma_rotulos": "pt"
+}

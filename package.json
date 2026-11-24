@@ -1,0 +1,16 @@
+{
+  "name": "basemaps-marca",
+  "version": "0.1.0",
+  "description": "Basemaps MapLibre/Protomaps derivados da identidade visual de cada cliente (Dekkai Insights)",
+  "scripts": {
+    "estilos": "node scripts/gerar_estilos.mjs"
+  },
+  "author": "Dekkai Insights",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@maplibre/maplibre-gl-style-spec": "^26.9.0",
+    "@protomaps/basemaps": "^5.7.2"
+  },
+  "private": true,
+  "type": "module"
+}

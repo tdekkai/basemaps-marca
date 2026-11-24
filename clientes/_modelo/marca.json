@@ -1,0 +1,10 @@
+{
+  "cliente": "Nome da Empresa",
+  "cores": {
+    "neutra_clara": "#F2EFE9",
+    "primaria": "#1F3A5F",
+    "secundaria": "#4A6FA5",
+    "acento": "#E07A5F"
+  },
+  "idioma_rotulos": "pt"
+}
