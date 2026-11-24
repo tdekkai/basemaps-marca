@@ -1,0 +1,43 @@
+{
+  "cliente": "Supergasbras",
+  "fonte_identidade": "site supergasbras.com.br (logo SVG e CSS), extraído em 24/11/2026; versão preliminar, sem manual de marca",
+  "cores": {
+    "neutra_clara": "#F3F3F3",
+    "primaria": "#222222",
+    "secundaria": "#5F5F5F",
+    "acento": "#D33100"
+  },
+  "tipografia": {
+    "marca": "Montserrat (texto) e Source Serif 4 (títulos), ambas livres (OFL)",
+    "rotulos_mapa": "Noto Sans (padrão Protomaps)"
+  },
+  "uso": {
+    "dado_tematico": "não definido (modelo de demonstração)",
+    "consequencia": "laranja só em rodovias e na variante colorida; fundo em cinzas neutros da marca"
+  },
+  "idioma_rotulos": "pt",
+  "ajustes": {
+    "colorido": {
+      "limites": "acc",
+      "rodovia": [
+        0.8,
+        0.12,
+        "acc"
+      ]
+    },
+    "claro": {
+      "rodovia": [
+        0.9,
+        0.07,
+        "acc"
+      ]
+    },
+    "escuro": {
+      "rodovia": [
+        0.58,
+        0.13,
+        "acc"
+      ]
+    }
+  }
+}

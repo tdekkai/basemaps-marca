@@ -70,13 +70,22 @@ def derivar(marca):
     ref_hex = {"neu": cores["neutra_clara"], "pri": cores["primaria"],
                "sec": cores["secundaria"], "acc": cores["acento"]}
     hue = {k: hex_oklch(v)[2] for k, v in ref_hex.items()}
-    hue["agua"] = puxar(225, hue["pri"])
-    hue["verde"] = puxar(145, hue["pri"])
+    # primária quase cinza (croma baixo) não tem matiz confiável: água e verde ficam na convenção
+    fator = 0.3 if hex_oklch(ref_hex["pri"])[1] >= 0.02 else 0.0
+    hue["agua"] = puxar(225, hue["pri"], fator)
+    hue["verde"] = puxar(145, hue["pri"], fator)
     saida = {}
-    for var, rec in RECEITAS.items():
+    ajustes = marca.get("ajustes", {})  # sobrescritas por cliente: {"variante": {"papel": "acc" | [L, C, "ref"]}}
+    for var, base in RECEITAS.items():
+        rec = {**base, **{k: (v if isinstance(v, str) else tuple(v)) for k, v in ajustes.get(var, {}).items()}}
         p = {}
         for papel, r in rec.items():
-            p[papel] = ref_hex[r] if isinstance(r, str) else oklch_hex(r[0], r[1], hue[r[2]])
+            if isinstance(r, str):
+                p[papel] = ref_hex[r]
+            else:
+                # cor de referência acromática (cinza): o papel também fica neutro
+                acromatica = r[2] in ref_hex and hex_oklch(ref_hex[r[2]])[1] < 0.02
+                p[papel] = oklch_hex(r[0], 0.0 if acromatica else r[1], hue[r[2]])
         L, C = POIS_LC[var]
         p["pois"] = {k: oklch_hex(L, C, h) for k, h in POIS_HUES.items()}
         saida[var] = p

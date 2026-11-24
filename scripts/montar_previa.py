@@ -5,7 +5,7 @@ import base64, json, sys, pathlib
 
 pasta = pathlib.Path(sys.argv[1])
 aqui = pathlib.Path(__file__).parent
-fonte = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else aqui.parent / "assets" / "Audex-Regular.ttf"
+fonte = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else pathlib.Path("/nao-existe")
 marca = json.loads((pasta / "marca.json").read_text(encoding="utf-8"))
 paletas = json.loads((pasta / "paletas.json").read_text(encoding="utf-8"))
 estilos = {v: json.loads((pasta / "estilos" / f"style-{v}.json").read_text(encoding="utf-8"))

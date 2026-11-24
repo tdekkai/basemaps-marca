@@ -29,7 +29,8 @@ Prévias: `clientes/<cliente>/previa-<cliente>.html` (índice em `index.html`).
 Instalação (uma vez): Python 3, Node 18+ e `npm install` na raiz.
 
 1. Copie `clientes/_modelo` para `clientes/<cliente>` e preencha `marca.json`
-   (`secundaria` e `acento` são opcionais).
+   (`secundaria` e `acento` são opcionais). Ajustes por cliente vão em `ajustes`,
+   ex.: `{"colorido": {"limites": "acc"}}` ou `{"escuro": {"rodovia": [0.58, 0.13, "acc"]}}`.
 2. `python scripts/derivar_paletas.py clientes/<cliente>` gera as paletas e valida o contraste.
 3. `node scripts/gerar_estilos.mjs clientes/<cliente>` gera os quatro `style.json`.
 4. `python scripts/montar_previa.py clientes/<cliente> [fonte.ttf]` gera a prévia HTML.
