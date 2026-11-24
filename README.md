@@ -15,12 +15,20 @@ const map = new maplibregl.Map({
 });
 ```
 
-O estilo usa o protocolo `pmtiles://`; registre-o antes de criar o mapa:
+Os estilos versionados apontam para a API do Protomaps com o marcador `SUA_CHAVE_PROTOMAPS`
+(a chave não fica no repositório). Para gerar estilos já com a chave:
+`PROTOMAPS_KEY=xxxx node scripts/gerar_estilos.mjs clientes/<cliente>`.
+Para um extrato próprio, passe a URL: `node scripts/gerar_estilos.mjs clientes/<cliente> https://.../sp.pmtiles`
+(nesse caso registre o protocolo `pmtiles://` no MapLibre).
 
-```js
-const protocol = new pmtiles.Protocol();
-maplibregl.addProtocol("pmtiles", protocol.tile);
-```
+Cada variante tem também `style-<variante>-sem-rotulos.json`, sem textos e ícones (QGIS, camadas temáticas densas).
+
+## Perfis próprios
+
+Uma variante pode usar um estilo feito à mão em vez da paleta derivada: `"perfis": {"claro": "dekkai_light"}`
+no `marca.json` aponta para `scripts/perfis/dekkai_light.mjs`. O perfil `dekkai_light` (light-dekkai v2)
+interpola cores por escala (nacional até z4,5, estadual z6 a z8, cidade a partir de z10), suaviza os contornos
+de rua por zoom e dá ênfase à cidade a partir do z12 (quadras, prédios, áreas comerciais, pontos de comércio e serviço).
 
 Prévias: `clientes/<cliente>/previa-<cliente>.html` (índice em `index.html`).
 

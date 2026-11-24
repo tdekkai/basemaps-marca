@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Basemaps __CLIENTE__</title>
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css">
 <style>
 @font-face{font-family:Marca;src:url(data:font/ttf;base64,__FONTE__) format("truetype")}
 :root{--bg:__NEU__;--ink:__PRI__;--sec:__SEC__;--acc:__ACC__}
@@ -37,21 +37,26 @@ details button{font:600 14px system-ui;padding:9px 14px;border:0;border-radius:5
   <figure><figcaption>Escala municipal · São Paulo</figcaption><div class="mapa" id="m2"></div></figure>
 </main>
 <div class="pal" id="pal"></div>
-<details><summary>Fonte dos tiles</summary>
-  <p>Padrão: PMTiles de demonstração do Protomaps. Se os mapas não carregarem, cole aqui uma chave da API do Protomaps ou a URL de um arquivo .pmtiles seu.</p>
+<p class="pal"><label><input type="checkbox" id="semRot"> Sem rótulos, textos e ícones</label></p>
+<details id="painelFonte"><summary>Fonte dos tiles</summary>
+  <p>Cole a chave da API do Protomaps (fica salva só neste navegador) ou a URL de um arquivo .pmtiles seu. Também aceita <code>?key=</code> no endereço da página.</p>
   <input id="fonte" placeholder="chave da API ou https://.../arquivo.pmtiles">
   <button id="aplicar">Aplicar</button>
 </details>
-<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/pmtiles@3.2.1/dist/pmtiles.js"></script>
 <script>
 {
 const ESTILOS = __ESTILOS__;
 const PALETAS = __PALETAS__;
+const PERFIS = __PERFIS__;
 const NOMES = {claro:"Claro", colorido:"Colorido", escuro:"Escuro", satelite:"Satélite"};
 const protocolo = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocolo.tile);
-let variante = "claro", fonte = null;
+let variante = "claro", semRot = false;
+let fonte = new URLSearchParams(location.search).get("key");
+try { fonte = fonte || localStorage.getItem("protomaps_fonte"); } catch (e) {}
+if (!fonte) document.getElementById("painelFonte").open = true;
 const aviso = document.getElementById("aviso");
 
 function estiloCom(v){
@@ -61,6 +66,7 @@ function estiloCom(v){
       ? {...s.sources.protomaps, url: "pmtiles://" + fonte}
       : {...s.sources.protomaps, url: "https://api.protomaps.com/tiles/v4.json?key=" + encodeURIComponent(fonte)};
   }
+  if (semRot) s.layers = s.layers.filter(l => l.type !== "symbol");
   return s;
 }
 const mapas = [
@@ -82,6 +88,7 @@ function desenhar(){
   document.getElementById("tabs").innerHTML = Object.keys(NOMES).map(v =>
     `<button data-v="${v}" aria-pressed="${v===variante}">${NOMES[v]}</button>`).join("");
   const p = PALETAS[variante];
+  if (PERFIS[variante]) { document.getElementById("pal").textContent = "Esta variante usa o perfil próprio \u201c" + PERFIS[variante] + "\u201d: cores interpoladas por escala (nacional, estadual, cidade), definidas no arquivo do perfil."; return; }
   document.getElementById("pal").innerHTML = Object.entries(p).filter(([k,c]) => typeof c === "string")
     .map(([k,c]) => `<span class="sw"><i style="background:${c}"></i>${k.replace("_"," ")} <b>${c}</b></span>`).join("");
 }
@@ -90,8 +97,12 @@ document.getElementById("tabs").addEventListener("click", e => {
   variante = b.dataset.v; desenhar();
   mapas.forEach(m => m.setStyle(estiloCom(variante)));
 });
+document.getElementById("semRot").addEventListener("change", e => {
+  semRot = e.target.checked; mapas.forEach(m => m.setStyle(estiloCom(variante)));
+});
 document.getElementById("aplicar").addEventListener("click", () => {
   fonte = document.getElementById("fonte").value.trim() || null;
+  try { fonte ? localStorage.setItem("protomaps_fonte", fonte) : localStorage.removeItem("protomaps_fonte"); } catch (e) {}
   aviso.style.display = "none";
   mapas.forEach(m => m.setStyle(estiloCom(variante)));
 });

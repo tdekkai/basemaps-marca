@@ -18,6 +18,7 @@ for k, v in {
     "__FONTE__": base64.b64encode(fonte.read_bytes()).decode() if fonte.exists() else "",
     "__ESTILOS__": json.dumps(estilos, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/"),
     "__PALETAS__": json.dumps(paletas, ensure_ascii=False),
+    "__PERFIS__": json.dumps(marca.get("perfis", {}), ensure_ascii=False),
 }.items():
     html = html.replace(k, v)
 saida = pasta / f"previa-{marca['cliente'].split()[0].lower()}.html"

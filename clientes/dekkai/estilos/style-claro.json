@@ -6,7 +6,7 @@
  "sources": {
   "protomaps": {
    "type": "vector",
-   "url": "pmtiles://https://demo-bucket.protomaps.com/v4.pmtiles",
+   "url": "https://api.protomaps.com/tiles/v4.json?key=SUA_CHAVE_PROTOMAPS",
    "attribution": "<a href=\"https://protomaps.com\">Protomaps</a> © <a href=\"https://openstreetmap.org\">OpenStreetMap</a>"
   }
  },
@@ -15,7 +15,19 @@
    "id": "background",
    "type": "background",
    "paint": {
-    "background-color": "#f8f5ee"
+    "background-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     12,
+     "#f5f3f3",
+     14,
+     "#eceaea"
+    ]
    }
   },
   {
@@ -29,7 +41,19 @@
    "source": "protomaps",
    "source-layer": "earth",
    "paint": {
-    "fill-color": "#f8f5ee"
+    "fill-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     12,
+     "#f5f3f3",
+     14,
+     "#eceaea"
+    ]
    }
   },
   {
@@ -39,24 +63,109 @@
    "source-layer": "landcover",
    "paint": {
     "fill-color": [
-     "match",
+     "interpolate-lab",
      [
-      "get",
-      "kind"
+      "linear"
      ],
-     "grassland",
-     "#daeee0",
-     "barren",
-     "#f4f0e7",
-     "urban_area",
-     "#d5d0c7",
-     "farmland",
-     "#f4f0e7",
-     "glacier",
-     "#f4f0e7",
-     "scrub",
-     "#daeee0",
-     "#daeee0"
+     [
+      "zoom"
+     ],
+     4.5,
+     [
+      "to-color",
+      [
+       "match",
+       [
+        "get",
+        "kind"
+       ],
+       "grassland",
+       "#e4e9e3",
+       "barren",
+       "#e8e8e6",
+       "urban_area",
+       "#e2e2e2",
+       "farmland",
+       "#e6e8e3",
+       "glacier",
+       "#ffffff",
+       "scrub",
+       "#e4e8e3",
+       "#dce6dc"
+      ]
+     ],
+     6,
+     [
+      "to-color",
+      [
+       "match",
+       [
+        "get",
+        "kind"
+       ],
+       "grassland",
+       "#bfe3b0",
+       "barren",
+       "#e8e8e6",
+       "urban_area",
+       "#e0e0e0",
+       "farmland",
+       "#dcebcd",
+       "glacier",
+       "#ffffff",
+       "scrub",
+       "#c8e3b4",
+       "#86c98f"
+      ]
+     ],
+     8,
+     [
+      "to-color",
+      [
+       "match",
+       [
+        "get",
+        "kind"
+       ],
+       "grassland",
+       "#bfe3b0",
+       "barren",
+       "#e8e8e6",
+       "urban_area",
+       "#e0e0e0",
+       "farmland",
+       "#dcebcd",
+       "glacier",
+       "#ffffff",
+       "scrub",
+       "#c8e3b4",
+       "#86c98f"
+      ]
+     ],
+     10,
+     [
+      "to-color",
+      [
+       "match",
+       [
+        "get",
+        "kind"
+       ],
+       "grassland",
+       "#d3f8e2",
+       "barren",
+       "#f5f3f3",
+       "urban_area",
+       "#f5f3f3",
+       "farmland",
+       "#f5f3f3",
+       "glacier",
+       "#ffffff",
+       "scrub",
+       "#e3f5ea",
+       "#c3f1d5"
+      ]
+     ]
     ],
     "fill-opacity": [
      "interpolate",
@@ -113,87 +222,398 @@
      1
     ],
     "fill-color": [
-     "case",
+     "interpolate-lab",
      [
-      "in",
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4.5,
+     [
+      "to-color",
       [
-       "get",
-       "kind"
-      ],
-      [
-       "literal",
+       "case",
        [
-        "national_park",
-        "park",
-        "cemetery",
-        "protected_area",
-        "nature_reserve",
-        "forest",
-        "golf_course"
-       ]
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "national_park",
+          "park",
+          "cemetery",
+          "protected_area",
+          "nature_reserve",
+          "forest",
+          "golf_course"
+         ]
+        ]
+       ],
+       "#dbe7de",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "wood"
+       ],
+       "#d6e3d6",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "scrub",
+          "grassland",
+          "grass"
+         ]
+        ]
+       ],
+       "#dde6e0",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "glacier"
+       ],
+       "#ffffff",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "sand"
+       ],
+       "#eeeed1",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "military",
+          "naval_base",
+          "airfield"
+         ]
+        ]
+       ],
+       "#f5f3f3",
+       "#f5f3f3"
       ]
      ],
-     "#daeee0",
+     6,
      [
-      "==",
+      "to-color",
       [
-       "get",
-       "kind"
-      ],
-      "wood"
-     ],
-     "#daeee0",
-     [
-      "in",
-      [
-       "get",
-       "kind"
-      ],
-      [
-       "literal",
+       "case",
        [
-        "scrub",
-        "grassland",
-        "grass"
-       ]
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "national_park",
+          "park",
+          "cemetery",
+          "protected_area",
+          "nature_reserve",
+          "forest",
+          "golf_course"
+         ]
+        ]
+       ],
+       "#8fd29c",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "wood"
+       ],
+       "#7fc88b",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "scrub",
+          "grassland",
+          "grass"
+         ]
+        ]
+       ],
+       "#a2d29a",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "glacier"
+       ],
+       "#ffffff",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "sand"
+       ],
+       "#eeeed1",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "military",
+          "naval_base",
+          "airfield"
+         ]
+        ]
+       ],
+       "#f5f3f3",
+       "#f5f3f3"
       ]
      ],
-     "#daeee0",
+     8,
      [
-      "==",
+      "to-color",
       [
-       "get",
-       "kind"
-      ],
-      "glacier"
-     ],
-     "#f4f0e7",
-     [
-      "==",
-      [
-       "get",
-       "kind"
-      ],
-      "sand"
-     ],
-     "#f4f0e7",
-     [
-      "in",
-      [
-       "get",
-       "kind"
-      ],
-      [
-       "literal",
+       "case",
        [
-        "military",
-        "naval_base",
-        "airfield"
-       ]
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "national_park",
+          "park",
+          "cemetery",
+          "protected_area",
+          "nature_reserve",
+          "forest",
+          "golf_course"
+         ]
+        ]
+       ],
+       "#8fd29c",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "wood"
+       ],
+       "#7fc88b",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "scrub",
+          "grassland",
+          "grass"
+         ]
+        ]
+       ],
+       "#a2d29a",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "glacier"
+       ],
+       "#ffffff",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "sand"
+       ],
+       "#eeeed1",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "military",
+          "naval_base",
+          "airfield"
+         ]
+        ]
+       ],
+       "#f5f3f3",
+       "#f5f3f3"
       ]
      ],
-     "#f4f0e7",
-     "#f8f5ee"
+     10,
+     [
+      "to-color",
+      [
+       "case",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "national_park",
+          "park",
+          "cemetery",
+          "protected_area",
+          "nature_reserve",
+          "forest",
+          "golf_course"
+         ]
+        ]
+       ],
+       "#c3f1d5",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "wood"
+       ],
+       "#c3f1d5",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "scrub",
+          "grassland",
+          "grass"
+         ]
+        ]
+       ],
+       "#c3f1d5",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "glacier"
+       ],
+       "#ffffff",
+       [
+        "==",
+        [
+         "get",
+         "kind"
+        ],
+        "sand"
+       ],
+       "#eeeed1",
+       [
+        "in",
+        [
+         "get",
+         "kind"
+        ],
+        [
+         "literal",
+         [
+          "military",
+          "naval_base",
+          "airfield"
+         ]
+        ]
+       ],
+       "#f5f3f3",
+       "#f5f3f3"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "dekkai_comercial",
+   "type": "fill",
+   "source": "protomaps",
+   "source-layer": "landuse",
+   "filter": [
+    "in",
+    [
+     "get",
+     "kind"
+    ],
+    [
+     "literal",
+     [
+      "commercial",
+      "retail"
+     ]
+    ]
+   ],
+   "minzoom": 12,
+   "paint": {
+    "fill-color": "#f3e4d8",
+    "fill-opacity": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     12,
+     0,
+     14,
+     1
     ]
    }
   },
@@ -210,7 +630,35 @@
     "playground"
    ],
    "paint": {
-    "fill-color": "#daeee0",
+    "fill-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4.5,
+     [
+      "to-color",
+      "#dbe7de"
+     ],
+     6,
+     [
+      "to-color",
+      "#8fd29c"
+     ],
+     8,
+     [
+      "to-color",
+      "#8fd29c"
+     ],
+     10,
+     [
+      "to-color",
+      "#c3f1d5"
+     ]
+    ],
     "fill-opacity": 0.7
    }
   },
@@ -225,7 +673,7 @@
     "hospital"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#fce8e6"
    }
   },
   {
@@ -239,7 +687,7 @@
     "industrial"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#f5f3f3"
    }
   },
   {
@@ -255,7 +703,7 @@
     "college"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#f5f3f3"
    }
   },
   {
@@ -269,7 +717,7 @@
     "beach"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#eeeed1"
    }
   },
   {
@@ -283,7 +731,7 @@
     "zoo"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#f5f3f3"
    }
   },
   {
@@ -297,7 +745,7 @@
     "aerodrome"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#f5f3f3"
    }
   },
   {
@@ -311,7 +759,7 @@
     "runway"
    ],
    "paint": {
-    "line-color": "#f4f0e7",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -342,7 +790,7 @@
     "taxiway"
    ],
    "paint": {
-    "line-color": "#f4f0e7",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -376,7 +824,7 @@
     ]
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#ffffff"
    }
   },
   {
@@ -390,7 +838,35 @@
    "source": "protomaps",
    "source-layer": "water",
    "paint": {
-    "fill-color": "#c4dfe4"
+    "fill-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4.5,
+     [
+      "to-color",
+      "#4ab3e6"
+     ],
+     6,
+     [
+      "to-color",
+      "#90daee"
+     ],
+     8,
+     [
+      "to-color",
+      "#90daee"
+     ],
+     10,
+     [
+      "to-color",
+      "#90daee"
+     ]
+    ]
    }
   },
   {
@@ -405,7 +881,35 @@
     "stream"
    ],
    "paint": {
-    "line-color": "#c4dfe4",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4.5,
+     [
+      "to-color",
+      "#4ab3e6"
+     ],
+     6,
+     [
+      "to-color",
+      "#90daee"
+     ],
+     8,
+     [
+      "to-color",
+      "#90daee"
+     ],
+     10,
+     [
+      "to-color",
+      "#90daee"
+     ]
+    ],
     "line-width": 0.5
    }
   },
@@ -421,7 +925,35 @@
     "river"
    ],
    "paint": {
-    "line-color": "#c4dfe4",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4.5,
+     [
+      "to-color",
+      "#4ab3e6"
+     ],
+     6,
+     [
+      "to-color",
+      "#90daee"
+     ],
+     8,
+     [
+      "to-color",
+      "#90daee"
+     ],
+     10,
+     [
+      "to-color",
+      "#90daee"
+     ]
+    ],
     "line-width": [
      "interpolate",
      [
@@ -452,7 +984,7 @@
     "dam"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#f5f3f3"
    }
   },
   {
@@ -466,7 +998,7 @@
     "pier"
    ],
    "paint": {
-    "fill-color": "#f4f0e7"
+    "fill-color": "#f5f3f3"
    }
   },
   {
@@ -488,7 +1020,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f3f2f2",
+     16,
+     "#edeef0"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -523,7 +1067,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f3f2f2",
+     16,
+     "#edeef0"
+    ],
     "line-dasharray": [
      3,
      2
@@ -579,7 +1135,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f3f2f2",
+     16,
+     "#edeef0"
+    ],
     "line-dasharray": [
      3,
      2
@@ -638,7 +1206,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f3f2f2",
+     16,
+     "#edeef0"
+    ],
     "line-dasharray": [
      3,
      2
@@ -701,7 +1281,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f3f2f2",
+     16,
+     "#edeef0"
+    ],
     "line-dasharray": [
      6,
      0.5
@@ -759,7 +1351,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#f5f3f3",
     "line-dasharray": [
      4.5,
      0.5
@@ -798,7 +1390,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#f5f3f3",
     "line-width": [
      "interpolate",
      [
@@ -836,7 +1428,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#f5f3f3",
     "line-width": [
      "interpolate",
      [
@@ -873,7 +1465,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#ffffff",
+    "line-color": "#f5f3f3",
     "line-width": [
      "interpolate",
      [
@@ -922,7 +1514,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#f5e4c5",
+    "line-color": "#f5f3f3",
     "line-width": [
      "interpolate",
      [
@@ -957,8 +1549,23 @@
     "building_part"
    ],
    "paint": {
-    "fill-color": "#d5d0c7",
-    "fill-opacity": 0.5
+    "fill-color": "#d9d5d0",
+    "fill-opacity": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     13,
+     0,
+     14,
+     0.7,
+     15,
+     1
+    ],
+    "fill-outline-color": "#c7c1ba"
    }
   },
   {
@@ -972,7 +1579,7 @@
     "pier"
    ],
    "paint": {
-    "line-color": "#f4f0e7",
+    "line-color": "#f5f3f3",
     "line-width": [
      "interpolate",
      [
@@ -1019,7 +1626,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f1f0f1",
+     16,
+     "#e5e7ec"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1077,7 +1696,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f1f0f1",
+     16,
+     "#e5e7ec"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1123,7 +1754,19 @@
     "is_link"
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f1f0f1",
+     16,
+     "#e5e7ec"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1179,7 +1822,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#ededef",
+     16,
+     "#d9dee5"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1241,7 +1896,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#e5e7eb",
+     16,
+     "#bac8d7"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1304,7 +1971,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -1377,7 +2044,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -1431,9 +2098,9 @@
       "zoom"
      ],
      11,
-     "#fffdfa",
+     "#ffffff",
      16,
-     "#fffdfa"
+     "#ffffff"
     ],
     "line-width": [
      "interpolate",
@@ -1478,7 +2145,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#ededef",
+     16,
+     "#d9dee5"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1581,7 +2260,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#e5e7eb",
+     16,
+     "#bac8d7"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1640,7 +2331,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#f5e4c5",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -1679,7 +2370,7 @@
      0.75
     ],
     "line-opacity": 0.5,
-    "line-color": "#bab7b0",
+    "line-color": "#d5dee4",
     "line-width": [
      "interpolate",
      [
@@ -1709,7 +2400,7 @@
     2
    ],
    "paint": {
-    "line-color": "#76938c",
+    "line-color": "#9aacb2",
     "line-width": 0.7,
     "line-dasharray": [
      "step",
@@ -1745,7 +2436,7 @@
     2
    ],
    "paint": {
-    "line-color": "#76938c",
+    "line-color": "#9aacb2",
     "line-width": 0.4,
     "line-dasharray": [
      "step",
@@ -1790,7 +2481,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f1f0f1",
+     16,
+     "#e5e7ec"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1825,7 +2528,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f1f0f1",
+     16,
+     "#e5e7ec"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1877,7 +2592,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#f1f0f1",
+     16,
+     "#e5e7ec"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1931,7 +2658,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#ededef",
+     16,
+     "#d9dee5"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -1984,7 +2723,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#ffffff",
     "line-dasharray": [
      2,
      1
@@ -2024,7 +2763,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -2063,7 +2802,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#fffdfa",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -2145,7 +2884,19 @@
     ]
    ],
    "paint": {
-    "line-color": "#dedad2",
+    "line-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     11,
+     "#e5e7eb",
+     16,
+     "#bac8d7"
+    ],
     "line-gap-width": [
      "interpolate",
      [
@@ -2202,7 +2953,7 @@
     ]
    ],
    "paint": {
-    "line-color": "#f5e4c5",
+    "line-color": "#ffffff",
     "line-width": [
      "interpolate",
      [
@@ -2223,6 +2974,125 @@
      18,
      15
     ]
+   }
+  },
+  {
+   "id": "dekkai_servicos",
+   "type": "circle",
+   "source": "protomaps",
+   "source-layer": "pois",
+   "minzoom": 15,
+   "filter": [
+    "all",
+    [
+     "in",
+     [
+      "get",
+      "kind"
+     ],
+     [
+      "literal",
+      [
+       "school",
+       "university",
+       "library",
+       "post_office",
+       "townhall",
+       "museum",
+       "theatre",
+       "station",
+       "stadium"
+      ]
+     ]
+    ],
+    [
+     ">=",
+     [
+      "zoom"
+     ],
+     [
+      "get",
+      "min_zoom"
+     ]
+    ]
+   ],
+   "paint": {
+    "circle-color": "#7f93ab",
+    "circle-radius": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     15,
+     2,
+     18,
+     4.5
+    ],
+    "circle-stroke-color": "#ffffff",
+    "circle-stroke-width": 1
+   }
+  },
+  {
+   "id": "dekkai_lojas",
+   "type": "circle",
+   "source": "protomaps",
+   "source-layer": "pois",
+   "minzoom": 15,
+   "filter": [
+    "all",
+    [
+     "in",
+     [
+      "get",
+      "kind"
+     ],
+     [
+      "literal",
+      [
+       "supermarket",
+       "convenience",
+       "books",
+       "beauty",
+       "electronics",
+       "clothes",
+       "restaurant",
+       "fast_food",
+       "cafe",
+       "bar"
+      ]
+     ]
+    ],
+    [
+     ">=",
+     [
+      "zoom"
+     ],
+     [
+      "get",
+      "min_zoom"
+     ]
+    ]
+   ],
+   "paint": {
+    "circle-color": "#c4825a",
+    "circle-radius": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     15,
+     2,
+     18,
+     4.5
+    ],
+    "circle-stroke-color": "#ffffff",
+    "circle-stroke-width": 1
    }
   },
   {
@@ -2248,8 +3118,8 @@
     "text-size": 12
    },
    "paint": {
-    "text-color": "#848076",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#91888b",
+    "text-halo-color": "#ffffff",
     "text-halo-width": 1
    }
   },
@@ -3144,8 +4014,8 @@
     "text-letter-spacing": 0.2
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#c4dfe4",
+    "text-color": "#728dd4",
+    "text-halo-color": "#90daee",
     "text-halo-width": 1
    }
   },
@@ -4065,8 +4935,8 @@
     "text-size": 12
    },
    "paint": {
-    "text-color": "#848076",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#91888b",
+    "text-halo-color": "#ffffff",
     "text-halo-width": 1
    }
   },
@@ -4976,9 +5846,9 @@
     "text-transform": "uppercase"
    },
    "paint": {
-    "text-color": "#46625a",
+    "text-color": "#728dd4",
     "text-halo-width": 1,
-    "text-halo-color": "#c4dfe4"
+    "text-halo-color": "#90daee"
    }
   },
   {
@@ -5870,8 +6740,8 @@
     "text-max-width": 8
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#8f8f8f",
+    "text-halo-color": "#e0e0e0",
     "text-halo-width": 1
    }
   },
@@ -6779,8 +7649,8 @@
     "text-max-width": 9
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#c4dfe4",
+    "text-color": "#728dd4",
+    "text-halo-color": "#90daee",
     "text-halo-width": 1
    }
   },
@@ -6881,7 +7751,7 @@
     "text-rotation-alignment": "viewport"
    },
    "paint": {
-    "text-color": "#46625a"
+    "text-color": "#938a8d"
    }
   },
   {
@@ -7778,8 +8648,8 @@
     "text-size": 12
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#938a8d",
+    "text-halo-color": "#ffffff",
     "text-halo-width": 1
    }
   },
@@ -8787,7 +9657,7 @@
        ]
       ]
      ],
-     "#56805f",
+     "#20834D",
      [
       "in",
       [
@@ -8804,7 +9674,7 @@
        ]
       ]
      ],
-     "#64739e",
+     "#315BCF",
      [
       "in",
       [
@@ -8827,7 +9697,7 @@
        ]
       ]
      ],
-     "#4d7a9a",
+     "#6A5B8F",
      [
       "in",
       [
@@ -8846,7 +9716,7 @@
        ]
       ]
      ],
-     "#54789c",
+     "#1A8CBD",
      [
       "in",
       [
@@ -8863,7 +9733,7 @@
        ]
       ]
      ],
-     "#95694c",
+     "#CB6704",
      [
       "in",
       [
@@ -8880,10 +9750,10 @@
        ]
       ]
      ],
-     "#976373",
-     "#f8f5ee"
+     "#EF56BA",
+     "#f5f3f3"
     ],
-    "text-halo-color": "#f8f5ee",
+    "text-halo-color": "#f5f3f3",
     "text-halo-width": 1
    }
   },
@@ -9825,8 +10695,8 @@
     "text-transform": "uppercase"
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#8f8f8f",
+    "text-halo-color": "#e0e0e0",
     "text-halo-width": 1
    }
   },
@@ -10754,8 +11624,8 @@
     "text-transform": "uppercase"
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#b3b3b3",
+    "text-halo-color": "#e0e0e0",
     "text-halo-width": 1
    }
   },
@@ -11907,8 +12777,8 @@
     "text-radial-offset": 0.3
    },
    "paint": {
-    "text-color": "#123F36",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#5c5c5c",
+    "text-halo-color": "#e0e0e0",
     "text-halo-width": 1
    }
   },
@@ -12056,8 +12926,8 @@
     "text-transform": "uppercase"
    },
    "paint": {
-    "text-color": "#46625a",
-    "text-halo-color": "#f8f5ee",
+    "text-color": "#a3a3a3",
+    "text-halo-color": "#f5f3f3",
     "text-halo-width": 1
    }
   }

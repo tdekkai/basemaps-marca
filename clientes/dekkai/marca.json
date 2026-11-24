@@ -16,6 +16,13 @@
     "dado_tematico": "varia por projeto",
     "consequencia": "basemap neutro; acento mostarda fica fora das áreas, só em rodovias e na variante colorida"
   },
-  "escalas_teste": ["estado de SP", "município de São Paulo"],
-  "idioma_rotulos": "pt"
+  "escalas_teste": [
+    "estado de SP",
+    "município de São Paulo"
+  ],
+  "idioma_rotulos": "pt",
+  "perfis": {
+    "claro": "dekkai_light"
+  },
+  "observacao_perfis": "A variante claro usa o estilo próprio light-dekkai v2 (scripts/perfis/dekkai_light.mjs), não a paleta derivada."
 }

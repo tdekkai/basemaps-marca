@@ -6,7 +6,7 @@
  "sources": {
   "protomaps": {
    "type": "vector",
-   "url": "pmtiles://https://demo-bucket.protomaps.com/v4.pmtiles",
+   "url": "https://api.protomaps.com/tiles/v4.json?key=SUA_CHAVE_PROTOMAPS",
    "attribution": "<a href=\"https://protomaps.com\">Protomaps</a> © <a href=\"https://openstreetmap.org\">OpenStreetMap</a>"
   }
  },

@@ -5,7 +5,12 @@ import fs from "node:fs";
 import path from "node:path";
 
 const pasta = process.argv[2];
-const PMTILES = process.argv[3] || "https://demo-bucket.protomaps.com/v4.pmtiles";
+// Fonte dos tiles: argumento (URL .pmtiles), ou chave da API Protomaps em PROTOMAPS_KEY,
+// ou um marcador a ser trocado na hora de usar (a prévia faz essa troca pela chave informada).
+const ARG = process.argv[3];
+const CHAVE = process.env.PROTOMAPS_KEY;
+const FONTE_TILES = ARG ? { url: `pmtiles://${ARG}` }
+  : { url: `https://api.protomaps.com/tiles/v4.json?key=${CHAVE || "SUA_CHAVE_PROTOMAPS"}` };
 const SATELITE = {
   tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg"],
   attribution: 'Sentinel-2 cloudless 2016 - <a href="https://s2maps.eu">s2maps.eu</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016 &amp; 2017)',
@@ -50,11 +55,13 @@ function flavorDe(variante) {
   return f;
 }
 
-function estilo(variante) {
+async function estilo(variante) {
   const flavor = flavorDe(variante);
   const sprite = `https://protomaps.github.io/basemaps-assets/sprites/v4/${variante === "claro" || variante === "colorido" ? "light" : "dark"}`;
-  const sources = { protomaps: { type: "vector", url: `pmtiles://${PMTILES}`, attribution: ATRIB_OSM } };
+  const sources = { protomaps: { type: "vector", ...FONTE_TILES, attribution: ATRIB_OSM } };
   let ls = layers("protomaps", flavor, { lang: "pt" });
+  const perfil = (marca.perfis || {})[variante];
+  if (perfil) ls = (await import(`./perfis/${perfil}.mjs`)).default("protomaps", "pt").layers;
 
   if (variante === "satelite") {
     sources.satelite = { type: "raster", tiles: SATELITE.tiles, tileSize: 256, maxzoom: 15, attribution: SATELITE.attribution };
@@ -81,7 +88,10 @@ function estilo(variante) {
 const saida = path.join(pasta, "estilos");
 fs.mkdirSync(saida, { recursive: true });
 for (const v of Object.keys(BASE)) {
-  const s = estilo(v);
+  const s = await estilo(v);
   fs.writeFileSync(path.join(saida, `style-${v}.json`), JSON.stringify(s, null, 1));
-  console.log(`style-${v}.json: ${s.layers.length} camadas`);
+  // Versão sem rótulos, textos e ícones (uso no QGIS e sob camadas temáticas densas)
+  const sr = { ...s, name: s.name + " sem rótulos", layers: s.layers.filter((l) => l.type !== "symbol") };
+  fs.writeFileSync(path.join(saida, `style-${v}-sem-rotulos.json`), JSON.stringify(sr, null, 1));
+  console.log(`style-${v}.json: ${s.layers.length} camadas${(marca.perfis || {})[v] ? " (perfil " + marca.perfis[v] + ")" : ""}`);
 }
