@@ -4,7 +4,7 @@
 import { layers, namedFlavor } from "@protomaps/basemaps";
 
 export const T = {
-  areia: "#d6cfb1", areiaEscura: "#c9c2a3", vegetacao: "#7fa596", vegetacaoDensa: "#6a9384",
+  areia: "#d6cfb1", areiaEscura: "#c9c2a3", vegetacao: "#b4bf9f", vegetacaoDensa: "#8fae9c",
   urbano: "#c3c7d0", predio: "#b4bac8", predioBorda: "#9ea5b6",
   aguaFunda: "#2a85a3", aguaRasa: "#4aa6c2", aguaCosta: "#7cc4d6",
   via: "#ece6d6", viaPrincipal: "#f6f1e4", rodovia: "#fbf7ec", contorno: "#aaa48f",
@@ -52,11 +52,16 @@ export default function (fonte, lang) {
     paint: { "fill-color": T.urbano, "fill-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 11, 0.9] } };
 
   const iAgua = ls.findIndex((l) => l.id === "water");
-  ls.splice(iAgua + 1, 0, faixa("tropical_costa_rasa", T.aguaRasa, 6, 0.7), faixa("tropical_costa", T.aguaCosta, 2.2, 0.8));
+  ls.splice(iAgua + 1, 0, faixa("tropical_costa_rasa", T.aguaRasa, 10, 0.85), faixa("tropical_costa", T.aguaCosta, 3.5, 0.9));
   const iPark = ls.findIndex((l) => l.id === "landuse_park");
   ls.splice(iPark, 0, urbano);
 
   ls = ls.map((l) => {
+    // Na escala da cidade a terra vira "quadra": cinza-azulado, com as vias creme por cima.
+    if (l.id === "earth" || l.id === "background") {
+      const prop = l.id === "earth" ? "fill-color" : "background-color";
+      return { ...l, paint: { ...l.paint, [prop]: ["interpolate-lab", ["linear"], ["zoom"], 10, T.areia, 12.5, T.urbano] } };
+    }
     if (l.id === "buildings") {
       return { ...l, paint: { ...l.paint, "fill-color": T.predio, "fill-outline-color": T.predioBorda,
         "fill-opacity": ["interpolate", ["linear"], ["zoom"], 13, 0, 14.5, 1] } };

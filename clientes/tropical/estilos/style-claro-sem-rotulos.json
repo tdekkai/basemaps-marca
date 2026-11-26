@@ -15,7 +15,19 @@
    "id": "background",
    "type": "background",
    "paint": {
-    "background-color": "#d6cfb1"
+    "background-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     10,
+     "#d6cfb1",
+     12.5,
+     "#c3c7d0"
+    ]
    }
   },
   {
@@ -29,7 +41,19 @@
    "source": "protomaps",
    "source-layer": "earth",
    "paint": {
-    "fill-color": "#d6cfb1"
+    "fill-color": [
+     "interpolate-lab",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     10,
+     "#d6cfb1",
+     12.5,
+     "#c3c7d0"
+    ]
    }
   },
   {
@@ -45,7 +69,7 @@
       "kind"
      ],
      "grassland",
-     "#7fa596",
+     "#b4bf9f",
      "barren",
      "#d6cfb1",
      "urban_area",
@@ -55,8 +79,8 @@
      "glacier",
      "#d6cfb1",
      "scrub",
-     "#7fa596",
-     "#6a9384"
+     "#b4bf9f",
+     "#8fae9c"
     ],
     "fill-opacity": [
      "interpolate",
@@ -172,7 +196,7 @@
        ]
       ]
      ],
-     "#6a9384",
+     "#8fae9c",
      [
       "==",
       [
@@ -181,7 +205,7 @@
       ],
       "wood"
      ],
-     "#6a9384",
+     "#8fae9c",
      [
       "in",
       [
@@ -197,7 +221,7 @@
        ]
       ]
      ],
-     "#6a9384",
+     "#8fae9c",
      [
       "==",
       [
@@ -249,7 +273,7 @@
     "playground"
    ],
    "paint": {
-    "fill-color": "#6a9384",
+    "fill-color": "#8fae9c",
     "fill-opacity": 0.7
    }
   },
@@ -444,7 +468,7 @@
    ],
    "paint": {
     "line-color": "#4aa6c2",
-    "line-opacity": 0.7,
+    "line-opacity": 0.85,
     "line-width": [
      "interpolate",
      [
@@ -455,11 +479,11 @@
       "zoom"
      ],
      5,
-     0.8999999999999999,
+     1.5,
      10,
-     6,
+     10,
      15,
-     36
+     60
     ],
     "line-blur": [
      "interpolate",
@@ -471,11 +495,11 @@
       "zoom"
      ],
      5,
-     0.8999999999999999,
+     1.5,
      10,
-     6,
+     10,
      15,
-     36
+     60
     ]
    }
   },
@@ -491,7 +515,7 @@
    ],
    "paint": {
     "line-color": "#7cc4d6",
-    "line-opacity": 0.8,
+    "line-opacity": 0.9,
     "line-width": [
      "interpolate",
      [
@@ -502,11 +526,11 @@
       "zoom"
      ],
      5,
-     0.33,
+     0.525,
      10,
-     2.2,
+     3.5,
      15,
-     13.200000000000001
+     21
     ],
     "line-blur": [
      "interpolate",
@@ -518,11 +542,11 @@
       "zoom"
      ],
      5,
-     0.33,
+     0.525,
      10,
-     2.2,
+     3.5,
      15,
-     13.200000000000001
+     21
     ]
    }
   },

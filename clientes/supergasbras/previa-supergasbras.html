@@ -88,7 +88,7 @@ function desenhar(){
   document.getElementById("tabs").innerHTML = Object.keys(NOMES).map(v =>
     `<button data-v="${v}" aria-pressed="${v===variante}">${NOMES[v]}</button>`).join("");
   const p = PALETAS[variante];
-  if (PERFIS[variante]) { document.getElementById("pal").textContent = "Esta variante usa o perfil próprio \u201c" + PERFIS[variante] + "\u201d: cores interpoladas por escala (nacional, estadual, cidade), definidas no arquivo do perfil."; return; }
+  if (PERFIS[variante]) { document.getElementById("pal").textContent = "Esta variante usa o perfil próprio \u201c" + PERFIS[variante] + "\u201d: cores e regras definidas em scripts/perfis/" + PERFIS[variante] + ".mjs."; return; }
   document.getElementById("pal").innerHTML = Object.entries(p).filter(([k,c]) => typeof c === "string")
     .map(([k,c]) => `<span class="sw"><i style="background:${c}"></i>${k.replace("_"," ")} <b>${c}</b></span>`).join("");
 }
