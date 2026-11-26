@@ -1,0 +1,12 @@
+{
+  "cliente": "Tropical",
+  "fonte_identidade": "estilo temático de demonstração: atmosfera de mapa de jogo de mundo aberto, paleta original",
+  "cores": {
+    "neutra_clara": "#D6CFB1",
+    "primaria": "#1F5F74",
+    "secundaria": "#2A85A3",
+    "acento": "#7CC4D6"
+  },
+  "perfis": { "claro": "tropical" },
+  "idioma_rotulos": "pt"
+}
